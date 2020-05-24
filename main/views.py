@@ -27,3 +27,7 @@ def news(request):
 
 def category(request):
     return render(request,'front/category.html')
+
+
+def panel(request):
+    return render(request, 'back/home.html')

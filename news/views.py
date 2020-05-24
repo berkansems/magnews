@@ -10,3 +10,9 @@ def news_detail(request,pk):
 
     context={'siteName':siteName,'news':news}
     return render(request, 'front/news_detail.html', context)
+
+
+def news_list(request):
+    newsList = News.objects.all()
+    context={'newsList':newsList}
+    return render(request, 'back/news_list.html',context)
