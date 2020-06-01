@@ -28,7 +28,7 @@
                         <th class="text-center">ID</th>
                         <th class="text-center"><i class="gi gi-user"></i></th>
                         <th>Title</th>
-                        <th>Date</th>
+                        <th>Date & time</th>
                         <th>Writer</th>
                         <th>Views</th>
                         <th class="text-center">Actions</th>
@@ -42,15 +42,15 @@
                                                      alt="avatar"
                                                      class="img-circle"></td>
                         <td>{{ news.name }}</td>
-                        <td>{{ news.date }}</td>
+                        <td>{{ news.date }} | {{ news.time }}</td>
                         <td>{{ news.writer }}</td>
                         <td>Business</td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <a href="javascript:void(0)" data-toggle="tooltip" title="Edit"
-                                   class="btn btn-xs btn-default"><i class="fa fa-pencil">EDIT</i></a>
-                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete"
-                                   class="btn btn-xs btn-danger"><i class="fa fa-times">DELETE</i></a>
+                                <a href="{% url 'news_edit' news.id %}" data-toggle="tooltip" title="Edit"
+                                   class="btn btn-default"><i class="fa fa-pencil">EDIT</i></a>
+                                <a href="{% url 'deleteNews' news.id %}" data-toggle="tooltip" title="Delete"
+                                   class="btn btn-danger"><i class="fa fa-times">DELETE</i></a>
                             </div>
                         </td>
                     </tr>

@@ -1,0 +1,86 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block content %}
+    <div id="page-content">
+        <!-- Datatables Header -->
+        <div class="content-header">
+            <div class="header-section">
+                <h1>
+                    <i class="fa fa-table"></i>Edit Book<br><small>you can update the Book you just selected!</small>
+                </h1>
+            </div>
+            <div class="breadcrumb breadcrump-top">
+                <li>Book</li>
+                <li><a href="{% url 'news_list' %}">Edit</a></li>
+            </div>
+        </div>
+
+
+        <div class="block full">
+            <div class="block-title">
+                <h2><strong>Edit</strong> Book</h2>
+            </div>
+
+            <div>
+
+                <form action="{% url 'add_book' %}" method="POST" class="form-horizontal form-bordered">
+
+                    {% csrf_token %}
+                    <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                        <thead>
+                        <tr>
+
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Authors</th>
+                            <th class="text-center">File</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in Books %}
+                            <tr class="text-center">
+                                <td>{{ i.id }}</td>
+                                <td>{{ i.name }}</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a href="#" data-toggle="tooltip" title="Edit"
+                                           class="btn btn-xs btn-default"><i class="fa fa-pencil">EDIT</i></a>
+                                        <a href="#" data-toggle="tooltip" title="Delete"
+                                           class="btn btn-xs btn-danger"><i class="fa fa-times">DELETE</i></a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="form-group form-actions">
+                        <div class="col-md-9 col-md-offset-0">
+                            <input type="submit" class="btn btn-sm btn-primary">
+
+                            <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Datatables Content -->
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{% static  'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function () {
+        TablesDatatables.init();
+    });</script>
+{% endblock %}

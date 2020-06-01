@@ -46,7 +46,10 @@
 
     <!-- Modernizr (browser feature detection library) -->
     <script src="{% static 'back/js/vendor/modernizr.min.js' %}"></script>
+    {% block headblock %}
+    {% endblock %}
 </head>
+
 <body>
 <!-- Page Wrapper -->
 <!-- In the PHP version you can set the following options from inc/config file -->
@@ -159,7 +162,48 @@
                                     class="gi gi-settings"></i></a></span>
                             <span class="sidebar-header-title">Site Settings</span>
                         </li>
-
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i
+                                    class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i
+                                    class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span
+                                    class="sidebar-nav-mini-hide">Category Panel</span></a>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'cat_add' %}">Add New</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'cat_list' %}">Manage</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i
+                                    class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i
+                                    class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span
+                                    class="sidebar-nav-mini-hide">Sub-Category Panel</span></a>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'subCategory_add' %}">Add sub-category</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'subCategory_list' %}">Manage sub-category</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i
+                                    class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i
+                                    class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span
+                                    class="sidebar-nav-mini-hide">Book Category Panel</span></a>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'add_book' %}">Add Book</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'book_list' %}">Manage Book</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="#" class="sidebar-nav-menu"><i
                                     class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i
@@ -167,7 +211,7 @@
                                     class="sidebar-nav-mini-hide">News Panel</span></a>
                             <ul>
                                 <li>
-                                    <a href="#">Add News</a>
+                                    <a href="{% url 'add_news' %}">Add News</a>
                                 </li>
                                 <li>
                                     <a href="{% url 'news_list' %}">News List</a>
@@ -378,7 +422,6 @@
 
 {% block footerblock %}
 {% endblock %}
-
 
 
 </body>

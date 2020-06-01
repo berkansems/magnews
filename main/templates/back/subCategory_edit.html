@@ -1,0 +1,73 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+{% block content %}
+    <div id="page-content">
+        <!-- Datatables Header -->
+        <div class="content-header">
+            <div class="header-section">
+                <h1>
+                    <i class="fa fa-table"></i>Add Sub-Category<br><small>you can add new Sub-Category!</small>
+                </h1>
+            </div>
+            <div class="breadcrumb breadcrump-top">
+                <li>Sub-Category</li>
+                <li><a href="{% url 'news_list' %}">Add</a></li>
+            </div>
+        </div>
+
+
+        <div class="block full">
+            <div class="block-title">
+                <h2><strong>Add</strong> Sub-Category</h2>
+            </div>
+
+            <div>
+
+                <form action="{% url 'subCategory_add' %}" method="POST" class="form-horizontal form-bordered">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <input type="text" id="name" name="name" class="form-control" value="{{ subCat.name }}" placeholder="sub-category title">
+                        </div>
+                        <div class="col-md-6">
+                            <select id="subcat" name="subcat" class="select-chosen"
+                                    data-placeholder="Choose a Category.." style="width: 250px;">
+                                <option></option>
+                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                {% for i in cat %}
+                                    <option value="{{ i.pk }}">{{ i.name }}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="form-group form-actions">
+                            <div class="col-md-9 col-md-offset-0">
+                                <input type="submit" class="btn btn-sm btn-primary">
+
+                                <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Datatables Content -->
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{% static  'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function () {
+        TablesDatatables.init();
+    });</script>
+{% endblock %}

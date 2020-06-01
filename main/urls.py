@@ -8,4 +8,5 @@ urlpatterns=[
     path('category/',views.category,name='category'),
     path('news/',views.news,name='news'),
     path('panel/',views.panel,name='panel'),
+
 ]
