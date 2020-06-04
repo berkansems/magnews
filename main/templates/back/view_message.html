@@ -1,0 +1,65 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block headblock %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div id="page-content">
+        <!-- Datatables Header -->
+        <div class="content-header">
+            <div class="header-section">
+                <h1>
+                    <i class="fa fa-table"></i>check<br><small>your messages!</small>
+                </h1>
+            </div>
+            <div class="breadcrumb breadcrump-top">
+                <li>check</li>
+                <li><a href="{% url 'message' %}">messages</a></li>
+            </div>
+        </div>
+
+
+        <div class="block full">
+            <div class="block-title">
+                <h2><strong>All</strong> messages</h2>
+            </div>
+
+            <div>
+
+                <a href="{% url 'message' %}" class="sidebar-title">
+                    <i class="fa fa-envelope pull-right"></i> <strong>Back </strong>to inbox!
+                </a>
+
+                    <div class="sidebar-section">
+                        <div class="alert alert-alt">
+                            {{ message.name }}<small class="pull-right">{{ message.date }}</small><br>
+                            <p>
+                                website link is: <a href=" #"> {{message.website }}</a>
+                            </p>
+                            <hr>
+                            <p>
+                                {{ message.txt }}
+                            </p>
+                        </div>
+
+                    </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- END Datatables Content -->
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{% static  'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function () {
+        TablesDatatables.init();
+    });</script>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+{% block headblock %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div id="page-content">
+        <!-- Datatables Header -->
+        <div class="content-header">
+            <div class="header-section">
+                <h1>
+                    <i class="fa fa-table"></i>Settings<br><small>you can set settings!</small>
+                </h1>
+            </div>
+            <div class="breadcrumb breadcrump-top">
+                <li>Site</li>
+                <li><a href="{% url 'news_list' %}">Settings</a></li>
+            </div>
+        </div>
+
+
+        <div class="block full">
+            <div class="block-title">
+                <h2><strong>Site </strong> Settings</h2>
+            </div>
+
+            <div>
+
+                <form action="{% url 'site_setting' %}" enctype="multipart/form-data" method="POST"
+                      class="form-horizontal form-bordered">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <input type="text" id="title" name="title" class="form-control"
+                                   placeholder="title" value="{{ form.name  }}">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="about" name="about" class="form-control"
+                                   placeholder="about this web site" value="{{ form.about }}">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <input type="text" id="facebook" name="facebook" class="form-control"
+                                   placeholder="facebook" value="{{ form.facebook }}">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" id="twitter" name="twitter" class="form-control"
+                                   placeholder="twitter" value="{{ form.twitter }}">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" id="instagram" name="instagram" class="form-control"
+                                  placeholder="instagram" value="{{ form.instagram }}"  >
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="form-group form-actions">
+                        <div class="col-md-9 col-md-offset-0">
+                            <input type="submit" class="btn btn-sm btn-primary">
+
+                            <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Datatables Content -->
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{% static  'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function () {
+        TablesDatatables.init();
+    });</script>
+{% endblock %}
