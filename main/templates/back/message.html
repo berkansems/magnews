@@ -1,9 +1,12 @@
 {% extends 'back/master.html' %}
 {% load static %}
+{% load humanize %}
 {% block headblock %}
+
     <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
 {% endblock %}
 {% block content %}
+
     <div id="page-content">
         <!-- Datatables Header -->
         <div class="content-header">
@@ -31,7 +34,7 @@
                 {% for x in message %}
                     <div class="sidebar-section">
                         <div class="alert alert-alt">
-                            {{ x.name }}<small class="pull-right">{{ x.date }}</small><br>
+                            {{ x.name }}<small class="pull-right">{{ x.date | naturaltime }}</small><br>
 
                             <a href="{% url 'view_message' x.id %}"><strong>View message</strong></a>
                         </div>

@@ -1,6 +1,8 @@
 {% extends 'back/master.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
+
     <div id="page-content">
     <!-- Dashboard Header -->
     <!-- For an image header add the class 'content-header-media' and an image as in the following example -->
@@ -9,7 +11,8 @@
             <div class="row">
                 <!-- Main Title (hidden on small devices for the statistics to fit) -->
                 <div class="col-md-4 col-lg-6 hidden-xs hidden-sm">
-                    <h1>Welcome <strong>Admin</strong><br><small>You Look Awesome!</small></h1>
+                    <h1>Welcome <strong>Admiewdn {{ xx.title }}</strong><br><small>You Look Awesome!</small></h1>
+
                 </div>
                 <!-- END Main Title -->
 
@@ -111,6 +114,7 @@
             </a>
             <!-- END Widget -->
         </div>
+
 
 
     </div>

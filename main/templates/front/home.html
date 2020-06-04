@@ -1,9 +1,11 @@
 {% extends 'front/master.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 
     <!-- Feature post -->
     <section class="bg0">
+
         <div class="row m-rl-0 justify-content-center">
             {% for last in lastNews %}
                 <div class="col-md-4 p-rl-1 p-b-2">
@@ -75,7 +77,7 @@
                                                                 </span>
 
                                                                 <span class="f1-s-3">
-                                                                    {{ ab.date }}
+                                                                    {{ ab.date | naturaltime }}
                                                                 </span>
                                                             </span>
                                                     </div>
