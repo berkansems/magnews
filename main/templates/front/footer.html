@@ -20,7 +20,12 @@
                         </p>
 
                         <p class="f1-s-1 cl11 p-b-16">
-                            Any questions? Call us on (+90) 538 060 5040 <a href="https://www.linkedin.com/in/berkan-%C5%9Fems-behrang-shamsadinlo-44ba2681/">berkan</a>
+                            Any questions? Call us on (+90) 538 060 5040 <a
+                                href="https://www.linkedin.com/in/berkan-%C5%9Fems-behrang-shamsadinlo-44ba2681/">berkan</a>
+                        </p>
+
+                        <p>
+                            <a href="{% url 'contact' %}" target="_blank">Contact us!</a>
                         </p>
 
                         <div class="p-t-15">
@@ -40,69 +45,55 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-lg-4 p-b-20">
-                    <div class="size-h-3 flex-s-c">
-                        <h5 class="f1-m-7 cl0">
-                            Popular Posts
-                        </h5>
-                    </div>
 
-                    <ul>
-                        <li class="flex-wr-sb-s p-b-20">
-                            <a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-                                <img src="{% static 'front/images/popular-post-01.jpg' %}" alt="IMG">
-                            </a>
+                <div class="p-b-30">
+                    {% for pop in popNews %}
 
-                            <div class="size-w-5">
-                                <h6 class="p-b-5">
-                                    <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
-                                        Donec metus orci, malesuada et lectus vitae
-                                    </a>
-                                </h6>
 
-                                <span class="f1-s-3 cl6">
-										Feb 17
-									</span>
-                            </div>
-                        </li>
+                        <ul class="p-t-35">
+                            <li class="flex-wr-sb-s p-b-30">
+                                <a href="{% url 'news_detail' pop.id %}" class="size-w-10 wrap-pic-w hov1 trans-03">
+                                    <img src="{{ pop.pic.url }}" alt="IMG">
+                                </a>
 
-                        <li class="flex-wr-sb-s p-b-20">
-                            <a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-                                <img src="{% static 'front/images/popular-post-02.jpg' %}" alt="IMG">
-                            </a>
+                                <div class="size-w-11">
+                                    <h6 class="p-b-4">
+                                        <a href="{% url 'news_detail' pop.id %}" class="f1-s-5 cl3 hov-cl10 trans-03">
+                                            {{ pop.short }}
+                                        </a>
+                                    </h6>
 
-                            <div class="size-w-5">
-                                <h6 class="p-b-5">
-                                    <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                    </a>
-                                </h6>
+                                    <span class="cl8 txt-center p-b-24">
+											<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+												{{ pop.category }}
+											</a>
 
-                                <span class="f1-s-3 cl6">
-										Feb 16
-									</span>
-                            </div>
-                        </li>
+											<span class="f1-s-3 m-rl-3">
+												-
+											</span>
 
-                        <li class="flex-wr-sb-s p-b-20">
-                            <a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-                                <img src="{% static 'front/images/popular-post-03.jpg' %}" alt="IMG">
-                            </a>
+											<span class="f1-s-3">
+												{{ pop.date }}
+											</span>
 
-                            <div class="size-w-5">
-                                <h6 class="p-b-5">
-                                    <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
-                                        Suspendisse dictum enim quis imperdiet auctor
-                                    </a>
-                                </h6>
+										</span>
+                                    <div>
+                                        <span>
+                                                <span>
+                                                    {{ pop.show }} <span>Views</span>
+                                                </span>
+                                        </span>
+                                    </div>
 
-                                <span class="f1-s-3 cl6">
-										Feb 15
-									</span>
-                            </div>
-                        </li>
-                    </ul>
+
+                                </div>
+
+                            </li>
+
+                        </ul>
+                    {% endfor %}
                 </div>
+
 
                 <div class="col-sm-6 col-lg-4 p-b-20">
                     <div class="size-h-3 flex-s-c">
@@ -110,38 +101,16 @@
                             Category
                         </h5>
                     </div>
+                    {% for c in cat %}
+                        <ul class="m-t--12">
+                            <li class="how-bor1 p-rl-5 p-tb-10">
+                                <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                                    {{ c.name }}
+                                </a>
+                            </li>
 
-                    <ul class="m-t--12">
-                        <li class="how-bor1 p-rl-5 p-tb-10">
-                            <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                Fashion (22)
-                            </a>
-                        </li>
-
-                        <li class="how-bor1 p-rl-5 p-tb-10">
-                            <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                Technology (29)
-                            </a>
-                        </li>
-
-                        <li class="how-bor1 p-rl-5 p-tb-10">
-                            <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                Street Style (15)
-                            </a>
-                        </li>
-
-                        <li class="how-bor1 p-rl-5 p-tb-10">
-                            <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                Life Style (28)
-                            </a>
-                        </li>
-
-                        <li class="how-bor1 p-rl-5 p-tb-10">
-                            <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                DIY & Crafts (16)
-                            </a>
-                        </li>
-                    </ul>
+                        </ul>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -155,9 +124,10 @@
 					<a href="#" class="f1-s-1 cl10 hov-link1"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
                                 class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                                  target="_blank">BerkanSems</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                                                                  target="_blank">BerkanSems</a></a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 				</span>
+
         </div>
     </div>
 </footer>

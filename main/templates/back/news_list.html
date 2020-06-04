@@ -1,0 +1,77 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block content %}
+    <div id="page-content">
+        <!-- Datatables Header -->
+        <div class="content-header">
+            <div class="header-section">
+                <h1>
+                    <i class="fa fa-table"></i>News List<br><small>you can add, edit or delete your data!</small>
+                </h1>
+            </div>
+            <div class="breadcrumb breadcrump-top">
+                <li>News</li>
+                <li><a href="{% url 'news_list' %}">List</a></li>
+            </div>
+        </div>
+
+
+        <div class="block full">
+            <div class="block-title">
+                <h2><strong>News</strong> List</h2>
+            </div>
+
+            <div class="table-responsive">
+                <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center"><i class="gi gi-user"></i></th>
+                        <th>Title</th>
+                        <th>Date & time</th>
+                        <th>Writer</th>
+                        <th>Views</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for news in newsList %}
+                    <tr>
+                        <td class="text-center">{{ news.rand }}</td>
+                        <td class="text-center"><img src="{{ news.pic.url }}" style="width: 40px; height: 40px"
+                                                     alt="avatar"
+                                                     class="img-circle"></td>
+                        <td>{{ news.name }}</td>
+                        <td>{{ news.date }} | {{ news.time }}</td>
+                        <td>{{ news.writer }}</td>
+                        <td>Business</td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <a href="{% url 'news_edit' news.id %}" data-toggle="tooltip" title="Edit"
+                                   class="btn btn-default"><i class="fa fa-pencil">EDIT</i></a>
+                                <a href="{% url 'deleteNews' news.id %}" data-toggle="tooltip" title="Delete"
+                                   class="btn btn-danger"><i class="fa fa-times">DELETE</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END Datatables Content -->
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{% static  'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function () {
+        TablesDatatables.init();
+    });</script>
+{% endblock %}

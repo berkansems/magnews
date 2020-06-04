@@ -1,29 +1,170 @@
-from django.shortcuts import render
+from random import random
+
+from django.shortcuts import render, redirect
 
 # Create your views here.
+from category.models import Cat
+from contactform.models import ContactForm
 from main.models import Main
 from news.models import News
+from subCategory.models import SubCategory
+from django.contrib.auth import authenticate, login, logout
+
 
 
 def home(request):
     siteName="MAG | Home"
-    main=Main.objects.get(id=1)
-    news= News.objects.all()
+    cat=Cat.objects.all()
+    subCat=SubCategory.objects.all()
 
-    context={'siteName':siteName,'main':main ,'news':news}
+
+    main=Main.objects.get(id=1)
+    news= News.objects.all().order_by('-pk')
+    popNews= News.objects.all().order_by('-show')[:3]
+    lastNews= News.objects.all().order_by('-pk')[:3]
+
+    context={'siteName':siteName,'main':main ,'news':news,'cat':cat,'subCat':subCat,'lastNews':lastNews,'popNews':popNews}
     return render(request, 'front/home.html',context)
 
 def about(request):
     siteName="MAG | Home"
     main=Main.objects.get(id=1)
+    cat = Cat.objects.all()
+    subCat = SubCategory.objects.all()
 
-    context={'siteName':siteName,'main':main }
+    main = Main.objects.get(id=1)
+    news = News.objects.all().order_by('-pk')
+    popNews = News.objects.all().order_by('-show')[:3]
+    lastNews = News.objects.all().order_by('-pk')[:3]
+
+    context={'siteName':siteName,'main':main ,'news':news,'cat':cat,'subCat':subCat,'lastNews':lastNews,'popNews':popNews}
 
     return render(request, 'front/about.html',context)
 
 
 def news(request):
-    return render(request, 'front/news_detail.html')
+    siteName = "MAG | Home"
+    cat = Cat.objects.all()
+    subCat = SubCategory.objects.all()
+
+    main = Main.objects.get(id=1)
+
+    lastNews = News.objects.all().order_by('-pk')[:5]
+    context = {'siteName': siteName, 'main': main,  'cat': cat, 'subCat': subCat, 'lastNews': lastNews}
+    return render(request, 'front/news.html',context)
 
 def category(request):
-    return render(request,'front/category.html')
+    siteName = "MAG | Home"
+    cat = Cat.objects.all()
+    subCat = SubCategory.objects.all()
+
+    main = Main.objects.get(id=1)
+
+    lastNews = News.objects.all().order_by('-pk')[:5]
+    context = {'siteName': siteName, 'main': main, 'cat': cat, 'subCat': subCat, 'lastNews': lastNews}
+
+    return render(request,'front/category.html',context)
+
+def panel(request):
+    #check user authenticated or not
+    messages=ContactForm.objects.all()
+    count=messages.count()
+    if not request.user.is_authenticated:
+        return redirect('my_login')
+
+    return render(request, 'back/home.html',{'count':count})
+
+
+def my_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        upass = request.POST.get('password')
+        user=authenticate(username=username,password=upass)
+        if user != None:
+            login(request,user)
+            return redirect('panel')
+
+
+    return render(request, 'front/login.html')
+
+def log_out(request):
+    logout(request)
+    return redirect('home')
+
+
+def site_setting(request):
+    forms=Main.objects.all()
+    form=forms[0]
+    print(form)
+    if not request.user.is_authenticated:
+        return redirect('my_login')
+    if request.method == "POST":
+
+        form.name = request.POST.get('title')
+        form.about = request.POST.get('about')
+        form.facebook = request.POST.get('facebook')
+        form.twitter = request.POST.get('twitter')
+        form.instagram = request.POST.get('instagram')
+        form.save()
+        return redirect('panel')
+
+    return render(request,'back/setting.html',{'form':form})
+
+def contact(request):
+    siteName = "MAG | Home"
+    cat = Cat.objects.all()
+    subCat = SubCategory.objects.all()
+
+    main = Main.objects.get(id=1)
+    news = News.objects.all().order_by('-pk')
+    popNews = News.objects.all().order_by('-show')[:3]
+    lastNews = News.objects.all().order_by('-pk')[:3]
+
+    if request.method == "POST":
+        try:
+            name=request.POST.get('name')
+            email=request.POST.get('email')
+            website=request.POST.get('website')
+            txt=request.POST.get('msg')
+            if txt == "" or name == "" or txt == "":
+                context = {'siteName': siteName, 'main': main, 'news': news, 'cat': cat, 'subCat': subCat,
+                           'lastNews': lastNews,'message': 'please fill all required filds','messageId':'False',
+                           'popNews': popNews}
+                return render(request, 'front/contact.html', context)
+            else:
+
+                message= ContactForm(name=name,email=email,website=website,txt=txt)
+                message.save()
+                context = {'siteName': siteName, 'main': main, 'news': news, 'cat': cat, 'subCat': subCat,
+                           'lastNews': lastNews, 'message': 'Congratulations! Your message successfully sent to us!', 'messageId': 'True',
+                           'popNews': popNews}
+                return render(request, 'front/contact.html', context)
+
+        except:
+            return render(request,'front/contact.html',{'message':'error happened please try later!','messageId':'False'})
+
+    context = {'siteName': siteName, 'main': main, 'news': news, 'cat': cat, 'subCat': subCat, 'lastNews': lastNews,
+               'popNews': popNews}
+
+    return render(request,'front/contact.html',context)
+
+def message(request):
+    if not request.user.is_authenticated:
+        return redirect('my_login')
+    message=ContactForm.objects.all()
+    count=message.count()
+    context={'count':count,'message':message}
+
+
+    return render(request,'back/message.html',context)
+
+
+def view_message(request,pk):
+    if not request.user.is_authenticated:
+        return redirect('my_login')
+    message=ContactForm.objects.get(id=pk)
+
+    context={'message':message}
+
+
+    return render(request,'back/view_message.html',context)
