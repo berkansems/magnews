@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'contactform',
+    'django.contrib.humanize',
 
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/ "

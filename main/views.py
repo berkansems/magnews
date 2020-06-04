@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 
 
 
+
+
 def home(request):
     siteName="MAG | Home"
     cat=Cat.objects.all()
@@ -69,10 +71,11 @@ def panel(request):
     #check user authenticated or not
     messages=ContactForm.objects.all()
     count=messages.count()
+    xx = 1234455
     if not request.user.is_authenticated:
         return redirect('my_login')
 
-    return render(request, 'back/home.html',{'count':count})
+    return render(request, 'back/home.html',{'count':count,'xx':xx})
 
 
 def my_login(request):
