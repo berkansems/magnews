@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from category.models import Cat
 from contactform.models import ContactForm
+from main.forms import UserForm
 from main.models import Main
 from news.models import News
 from subCategory.models import SubCategory
@@ -80,39 +81,13 @@ def panel(request):
     return render(request, 'back/home.html',{'count':count,'xx':xx})
 
 
-def my_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        upass = request.POST.get('password')
-        user=authenticate(username=username,password=upass)
-        if user != None:
-            login(request,user)
-            return redirect('panel')
 
-
-    return render(request, 'front/login.html')
 
 def log_out(request):
     logout(request)
     return redirect('home')
 
-@login_required(login_url='my_login')
-def site_setting(request):
-    forms=Main.objects.all()
-    form=forms[0]
-    print(form)
 
-    if request.method == "POST":
-
-        form.name = request.POST.get('title')
-        form.about = request.POST.get('about')
-        form.facebook = request.POST.get('facebook')
-        form.twitter = request.POST.get('twitter')
-        form.instagram = request.POST.get('instagram')
-        form.save()
-        return redirect('panel')
-
-    return render(request,'back/setting.html',{'form':form})
 
 def contact(request):
     siteName = "MAG | Home"
@@ -168,6 +143,52 @@ def view_message(request,pk):
     message=ContactForm.objects.get(id=pk)
 
     context={'message':message}
-
-
     return render(request,'back/view_message.html',context)
+
+@login_required(login_url='my_login')
+def site_setting(request):
+    forms=Main.objects.all()
+    form=forms[0]
+    print(form)
+
+    if request.method == "POST":
+
+        form.name = request.POST.get('title')
+        form.about = request.POST.get('about')
+        form.facebook = request.POST.get('facebook')
+        form.twitter = request.POST.get('twitter')
+        form.instagram = request.POST.get('instagram')
+        form.save()
+        return redirect('panel')
+
+    return render(request,'back/setting.html',{'form':form})
+
+
+def my_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        upass = request.POST.get('password')
+        user=authenticate(username=username,password=upass)
+        if user != None:
+            login(request,user)
+            return redirect('panel')
+
+
+    return render(request, 'front/login.html')
+
+
+def sign_up(request):
+    form=UserForm()
+    if request.method =="POST":
+        form=UserForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('panel')
+            except:
+                pass
+
+
+    context={'form':form}
+
+    return render(request,'front/signup.html',context)

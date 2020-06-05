@@ -89,9 +89,18 @@ body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #394263;
     font-size: 13px;
-    background-color: #222222;
-}
 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+
+    background-color: #394263;
+
+
+}
+body, html {
+  height: 100%;
+}
 #page-container,
 #main-container,
 #page-content + footer {
@@ -100,6 +109,7 @@ body {
 
 #page-container {
     width: 100%;
+
     padding: 0;
     margin: 0 auto;
     overflow-x: hidden;
@@ -140,6 +150,11 @@ body {
 }
 
 #page-content + footer {
+    clear: both;
+    position: relative;
+
+    margin-top: 400px;
+
     padding: 9px 10px;
     font-size: 11px;
     background-color: #ffffff;
