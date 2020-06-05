@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 
@@ -5,20 +6,18 @@ from django.shortcuts import render, redirect
 from news.forms import CreateNews
 from category.models import Cat
 import datetime
-
+@login_required(login_url='my_login')
 def cat_list(request):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     cat_list=Cat.objects.all()
     context={'cat_list':cat_list}
 
     return render(request, 'back/cat_list.html',context)
+@login_required(login_url='my_login')
+
 
 def cat_add(request):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     if request.method=="POST":
         cat=request.POST.get('name')
         print(Cat.objects.filter(name=cat))
@@ -33,10 +32,10 @@ def cat_add(request):
         return redirect('cat_list')
     return render(request, 'back/cat_add.html')
 
+
+@login_required(login_url='my_login')
 def cat_delete(request,pk):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     cat=Cat.objects.get(id=pk)
     cat.delete()
     return redirect('cat_list')

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 
@@ -6,20 +7,17 @@ from category.models import Cat
 from news.forms import CreateNews
 from .models import SubCategory
 import datetime
-
+@login_required(login_url='my_login')
 def subCategory_list(request):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('login')
+
     cat_list=SubCategory.objects.all()
     context={'cat_list':cat_list}
 
     return render(request, 'back/subCategory_list.html', context)
 
+@login_required(login_url='my_login')
 def subCategory_add(request):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('login')
+
     cat=Cat.objects.all()
 
     if request.method=="POST":
@@ -39,19 +37,16 @@ def subCategory_add(request):
         return redirect('subCategory_list')
     return render(request, 'back/subcategory_add.html',{'cat':cat})
 
+@login_required(login_url='my_login')
 def subCategory_delete(request,pk):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('login')
+
     subcat=SubCategory.objects.get(id=pk)
     subcat.delete()
     return redirect('subCategory_list')
 
-
+@login_required(login_url='my_login')
 def subCategory_edit(request,pk):
-    # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('login')
+
     subCat=SubCategory.objects.get(id=pk)
     cat=Cat.objects.all()
     return render(request,'back/subCategory_edit.html',{'subCat':subCat,'cat':cat})
