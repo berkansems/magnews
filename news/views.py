@@ -1,5 +1,6 @@
 from random import random
 
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 
@@ -23,20 +24,18 @@ def news_detail(request,pk):
     context={'siteName':siteName,'ne':ne,'cat':cat}
     return render(request, 'front/news_detail.html', context)
 
-
+@login_required(login_url='my_login')
 def news_list(request):
     # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     newsList = News.objects.all()
     context={'newsList':newsList}
     return render(request, 'back/news_list.html',context)
 
-
+@login_required(login_url='my_login')
 def add_news(request):
     # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     news=News.objects.all()
     cat=Cat.objects.all()
 
@@ -71,22 +70,18 @@ def add_news(request):
 
 def error(request):
     return render(request,'back/error.html')
-
+@login_required(login_url='my_login')
 def delete(request,pk):
     # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
-
     news=News.objects.get(id=pk)
     
     news.delete()
 
     return redirect('news_list')
 
+@login_required(login_url='my_login')
 def news_edit(request,pk):
     # check user authenticated or not
-    if not request.user.is_authenticated:
-        return redirect('my_login')
 
     news=News.objects.get(id=pk)
     if request.method=="POST":

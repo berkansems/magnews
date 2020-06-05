@@ -1,5 +1,6 @@
 from random import random
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -67,13 +68,14 @@ def category(request):
 
     return render(request,'front/category.html',context)
 
+
+@login_required(login_url='my_login')
 def panel(request):
     #check user authenticated or not
     messages=ContactForm.objects.all()
     count=messages.count()
     xx = 1234455
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
 
     return render(request, 'back/home.html',{'count':count,'xx':xx})
 
@@ -94,13 +96,12 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
-
+@login_required(login_url='my_login')
 def site_setting(request):
     forms=Main.objects.all()
     form=forms[0]
     print(form)
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     if request.method == "POST":
 
         form.name = request.POST.get('title')
@@ -151,9 +152,9 @@ def contact(request):
 
     return render(request,'front/contact.html',context)
 
+@login_required(login_url='my_login')
 def message(request):
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     message=ContactForm.objects.all()
     count=message.count()
     context={'count':count,'message':message}
@@ -161,10 +162,9 @@ def message(request):
 
     return render(request,'back/message.html',context)
 
-
+@login_required(login_url='my_login')
 def view_message(request,pk):
-    if not request.user.is_authenticated:
-        return redirect('my_login')
+
     message=ContactForm.objects.get(id=pk)
 
     context={'message':message}
