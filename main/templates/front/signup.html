@@ -92,14 +92,15 @@
                             <!-- Register Form -->
                             <form action="" method="post" id="form-register" class="form-horizontal">
                                 {% csrf_token %}
-                                {{form.errors}}
+
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="gi gi-user"></i></span>
                                             <div id="register-firstname" name="register-firstname" class="form-control input-lg">
+
                                                 <div style="border-bottom-left-radius: 15px">
-                                                    {{ form.username }}
+                                                   </span> {{ form.username }}
                                                 </div>
 
                                             </div>
@@ -111,6 +112,7 @@
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
+
                                             <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
                                             <div id="register-email" name="register-email" class="form-control input-lg">
                                                 {{ form.email }}
@@ -153,6 +155,7 @@
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Register Account</button>
                                     </div>
                                 </div>
+                                <span style="color: red;font-size: small">{{ form.errors }}</span>
                                 <div class="form-group">
                                     <div class="col-xs-12 text-center">
                                         <small>Do you have an account?</small> <a href="{% url 'my_login' %}" ><small>Login</small></a>
@@ -181,5 +184,13 @@
         <!-- Load and execute javascript code used only in this page -->
         <script src="{% static 'back/js/pages/login.js' %}"></script>
         <script>$(function(){ Login.init(); });</script>
+        <script>
+            var form_fields = document.getElementsByTagName('input')
+
+            form_fields[1].placeholder='Username...'
+            form_fields[2].placeholder='Email (optional) '
+            form_fields[3].placeholder='Enter a Password'
+            form_fields[4].placeholder='Confirm Password'
+        </script>
     </body>
 </html>

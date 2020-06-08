@@ -94,11 +94,11 @@
                     <!-- User Info -->
                     <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
                         <div class="sidebar-user-avatar">
-                            <a href="page_ready_user_profile.html">
+                            <a href="{% url 'panel' %}">
                                 <img src="{% static 'back/img/placeholders/avatars/avatar2.jpg' %}" alt="avatar">
                             </a>
                         </div>
-                        <div class="{% url 'panel' %}">Admin</div>
+                        <div >{{ request.user }}</div>
                         <div class="sidebar-user-links">
                             <a href="{% url 'panel' %}" data-toggle="tooltip" data-placement="bottom"
                                title="Profile"><i class="gi gi-user"></i></a>

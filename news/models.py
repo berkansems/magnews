@@ -8,7 +8,6 @@ from ckeditor.fields import RichTextField
 
 class News(models.Model):
     name=models.CharField(max_length=30,null=True,blank=True)
-
     short_text=models.CharField(max_length=150,null=True,blank=True)
     body_text= RichTextUploadingField(blank=True,null=True)
     date = models.CharField(max_length=12)

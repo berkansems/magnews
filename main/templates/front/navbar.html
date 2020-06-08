@@ -49,7 +49,7 @@
                             Contact
                         </a>
 
-                        <a href="#" class="left-topbar-item">
+                        <a href="{% url 'sign_up' %}" class="left-topbar-item">
                             Sing up
                         </a>
 
@@ -77,12 +77,18 @@
                 </div>
             </div>
         </div>
+        <div class="flex-wr-e-c">
+            {% if request.user.id  %}
+                <p style="color: #00cc66;font-weight: bold">very warm welcome <span style="color: red;margin-right: 25px ">{{ request.user }}</span></p>
+
+            {% endif %}
+        </div>
 
         <!-- Header Mobile -->
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="index.html"><img src="{% static 'front/images/icons/logo-01.png' %}" alt="IMG-LOGO"></a>
+                <a href="{% url 'home' %}"><img src="{% static 'front/images/icons/logo-01.png' %}" alt="IMG-LOGO"></a>
             </div>
 
             <!-- Button show menu -->
@@ -99,7 +105,7 @@
                 <li class="left-topbar">
 						<span class="left-topbar-item flex-wr-s-c">
 							<span>
-								New York, NY
+								New Yortttk, NY
 							</span>
 
 							<img class="m-b-1 m-rl-8" src="{% static 'front/images/icons/icon-night.png' %}" alt="IMG">
@@ -115,15 +121,15 @@
                         About
                     </a>
 
-                    <a href="#" class="left-topbar-item">
+                    <a href="{% url 'contact' %}" class="left-topbar-item">
                         Contact
                     </a>
 
-                    <a href="#" class="left-topbar-item">
+                    <a href="{% url 'sign_up' %}" class="left-topbar-item">
                         Sing up
                     </a>
 
-                    <a href="#" class="left-topbar-item">
+                    <a href="{% url 'my_login' %}" class="left-topbar-item">
                         Log in
                     </a>
                 </li>
@@ -158,28 +164,9 @@
                 </li>
 
                 <li>
-                    <a href="category-01.html">News</a>
+                    <a href="{% url 'news' %}">News</a>
                 </li>
 
-
-                <li>
-                    <a href="#">Features</a>
-                    <ul class="sub-menu-m">
-                        <li><a href="category-01.html">Category Page v1</a></li>
-                        <li><a href="category-02.html">Category Page v2</a></li>
-                        <li><a href="blog-grid.html">Blog Grid Sidebar</a></li>
-                        <li><a href="blog-list-01.html">Blog List Sidebar v1</a></li>
-                        <li><a href="blog-list-02.html">Blog List Sidebar v2</a></li>
-                        <li><a href="blog-detail-01.html">Blog Detail Sidebar</a></li>
-                        <li><a href="blog-detail-02.html">Blog Detail No Sidebar</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-
-                    <span class="arrow-main-menu-m">
-							<i class="fa fa-angle-right" aria-hidden="true"></i>
-						</span>
-                </li>
             </ul>
         </div>
 
@@ -196,7 +183,7 @@
             <div class="main-nav">
                 <!-- Menu desktop -->
                 <nav class="menu-desktop">
-                    <a class="logo-stick" href="index.html">
+                    <a class="logo-stick" href="{% url 'home' %}">
                         <img src="{% static 'front/images/icons/logo-01.png' %}" alt="LOGO">
                     </a>
 
@@ -209,7 +196,7 @@
 
 
                             <li class="mega-menu-item">
-                                <a href="category-01.html">{{ c.name }}</a>
+                                <a href="#">{{ c.name }}</a>
 
 
                                 <div class="sub-mega-menu">

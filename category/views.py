@@ -3,19 +3,22 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from main.decorators import allowed_users
 from news.forms import CreateNews
 from category.models import Cat
 import datetime
 @login_required(login_url='my_login')
+@allowed_users(allowed_roles = ['admin'])
 def cat_list(request):
 
     cat_list=Cat.objects.all()
     context={'cat_list':cat_list}
 
     return render(request, 'back/cat_list.html',context)
+
+
 @login_required(login_url='my_login')
-
-
+@allowed_users(allowed_roles = ['admin'])
 def cat_add(request):
 
     if request.method=="POST":
@@ -34,6 +37,7 @@ def cat_add(request):
 
 
 @login_required(login_url='my_login')
+@allowed_users(allowed_roles = ['admin'])
 def cat_delete(request,pk):
 
     cat=Cat.objects.get(id=pk)

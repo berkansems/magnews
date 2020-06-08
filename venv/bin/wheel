@@ -1,4 +1,4 @@
-#!/home/berkan/Desktop/github/proweb/venv/bin/python
+#!/home/elahe/Desktop/magnews/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

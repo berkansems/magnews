@@ -9,4 +9,5 @@ urlpatterns =[
     path('error/',views.error,name='error'),
     path('delete/<str:pk>/',views.delete,name='deleteNews'),
     path('news_edit/<str:pk>/',views.news_edit,name='news_edit'),
+    path('comment/<str:pk>/',views.comment,name='comment'),
 ]

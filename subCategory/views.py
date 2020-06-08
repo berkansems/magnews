@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from category.models import Cat
+from main.decorators import allowed_users
 from news.forms import CreateNews
 from .models import SubCategory
 import datetime
 @login_required(login_url='my_login')
+@allowed_users(allowed_roles = ['admin'])
 def subCategory_list(request):
 
     cat_list=SubCategory.objects.all()
@@ -16,6 +18,7 @@ def subCategory_list(request):
     return render(request, 'back/subCategory_list.html', context)
 
 @login_required(login_url='my_login')
+@allowed_users(allowed_roles = ['admin'])
 def subCategory_add(request):
 
     cat=Cat.objects.all()
@@ -38,6 +41,7 @@ def subCategory_add(request):
     return render(request, 'back/subcategory_add.html',{'cat':cat})
 
 @login_required(login_url='my_login')
+@allowed_users(allowed_roles = ['admin'])
 def subCategory_delete(request,pk):
 
     subcat=SubCategory.objects.get(id=pk)
