@@ -4,6 +4,6 @@ django-ckeditor==5.9.0
 django-crispy-forms==1.9.1
 django-editor==0.1
 django-js-asset==1.2.2
-Pillow==7.1.2
+Pillow==8.2.0
 pytz==2020.1
 sqlparse==0.3.1
